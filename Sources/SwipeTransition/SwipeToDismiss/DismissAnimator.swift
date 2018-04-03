@@ -26,7 +26,7 @@ extension DismissAnimator: UIViewControllerAnimatedTransitioning {
             let from = transitionContext.viewController(forKey: .from) else { return }
         transitionContext.containerView.insertSubview(to.view, belowSubview: from.view)
 
-        parent.onStartTransition?(transitionContext)
+        parent?.onStartTransition?(transitionContext)
 
         UIView.animate(
             withDuration: transitionDuration(using: transitionContext),
@@ -36,7 +36,7 @@ extension DismissAnimator: UIViewControllerAnimatedTransitioning {
                 from.view.transform = CGAffineTransform(translationX: 0, y: from.view.frame.height)
         }, completion: { [weak self] _ in
             from.view.transform = .identity
-            self?.parent.onFinishTransition?(transitionContext)
+            self?.parent?.onFinishTransition?(transitionContext)
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         })
 
